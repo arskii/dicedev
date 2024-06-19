@@ -26,7 +26,9 @@ class ProjectPage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 30.0),
-            CustomField(title: 'Project Name'),
+            CustomField(
+              title: 'Project Name',
+            ),
             const SizedBox(height: 30.0),
             CustomField(title: 'Project Description'),
             const SizedBox(height: 30.0),
