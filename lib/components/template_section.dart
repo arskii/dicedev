@@ -44,7 +44,6 @@ class TemplateItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           onTap;
-          debugPrint('Tapped!');
         },
         child: ListTile(
           leading: Icon(icon),

@@ -1,4 +1,5 @@
 import 'package:codedev/pages/home_page.dart';
+import 'package:codedev/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,17 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(
-            fontSize: 20.0,
-          ),
-          bodyLarge: TextStyle(
-            fontSize: 25.0,
-          ),
-        ),
-      ),
+      theme: lightTheme,
       home: const HomePage(),
     );
   }
