@@ -14,11 +14,12 @@ class _SearchFieldState extends State<SearchField> {
     return TextField(
       controller: _controller,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.all(10.0),
         prefixIcon: const Icon(Icons.search),
         suffixIcon:
             IconButton(onPressed: _controller.clear, icon: Icon(Icons.clear)),
         hintText: 'Search template',
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
       ),
     );
   }

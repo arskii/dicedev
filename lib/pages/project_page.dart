@@ -10,16 +10,26 @@ class ProjectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create Project"),
+        title: const Text("Create a new project"),
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        actions: [TextButton(onPressed: () {}, child: Text('Generate'))],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
         child: Column(
           children: [
+            const SizedBox(height: 30.0),
             CustomField(title: 'Project Name'),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 30.0),
             CustomField(title: 'Project Description'),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 30.0),
             CustomField(
                 controller: datePickerController,
                 title: 'Deadline Time',
@@ -35,7 +45,7 @@ TextEditingController datePickerController = TextEditingController();
 onTapFunction({required BuildContext context}) async {
   DateTime? pickedDate = await showDatePicker(
     context: context,
-    lastDate: DateTime.now(),
+    lastDate: DateTime(2026),
     firstDate: DateTime(2022),
     initialDate: DateTime.now(),
   );

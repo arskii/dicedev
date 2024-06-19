@@ -14,7 +14,7 @@ class CustomField extends StatelessWidget {
       controller: controller,
       onTap: onTap,
       decoration: InputDecoration(
-        hintText: title,
+        labelText: title,
         border: const OutlineInputBorder(),
       ),
     );

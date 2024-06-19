@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           );
         },
         icon: const Icon(Icons.add),
-        label: const Text('New Project'),
+        label: const Text('New project'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
