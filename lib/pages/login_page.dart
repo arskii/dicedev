@@ -1,3 +1,4 @@
+import 'package:codedev/auth/auth_service.dart';
 import 'package:codedev/components/custom_button.dart';
 import 'package:codedev/components/custom_field.dart';
 import 'package:codedev/constants.dart';
@@ -10,7 +11,23 @@ class LoginPage extends StatelessWidget {
   void Function()? onTap;
   LoginPage({super.key, required this.onTap});
 
-  void login() {}
+  void login(BuildContext context) async {
+    final authService = AuthService();
+
+    try {
+      await authService.signInWithEmailAndPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            e.toString(),
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +91,7 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: 25.0),
               CustomButton(
-                onTap: login,
+                onTap: () => login(context),
                 text: 'Login',
               )
             ]),
