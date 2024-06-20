@@ -2,6 +2,7 @@ import 'package:codedev/auth/auth_gate.dart';
 import 'package:codedev/auth/login_or_signup.dart';
 import 'package:codedev/firebase_options.dart';
 import 'package:codedev/pages/home_page.dart';
+import 'package:codedev/pages/login_page.dart';
 
 import 'package:codedev/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,6 +23,12 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       home: HomePage(),
+      routes: {
+        '/LoginPage': (context) => LoginPage(
+              onTap: () {},
+            ),
+        '/HomePage': (context) => const HomePage(),
+      },
     );
   }
 }

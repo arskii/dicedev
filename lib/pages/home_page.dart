@@ -4,13 +4,32 @@ import 'package:codedev/components/template_section.dart';
 import 'package:codedev/constants.dart';
 import 'package:codedev/pages/project_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void logout() {
     final auth = AuthService();
     auth.signOut();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_auth.currentUser == null) {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            "/LoginPage", (Route<dynamic> route) => false);
+      }
+    });
   }
 
   @override
