@@ -10,31 +10,27 @@ class RegisterPage extends StatelessWidget {
   final confirmPasswordController = TextEditingController();
   final void Function()? onTap;
   RegisterPage({super.key, required this.onTap});
-  void signUp(BuildContext context) {
-    final auth = AuthService();
-    if (passwordController.text == confirmPasswordController.text) {
-      try {
-        auth.createUserWithEmailAndPassword(
-          emailController.text,
-          passwordController.text,
-        );
-      } catch (e) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(
-              e.toString(),
-            ),
-          ),
-        );
-      }
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(
-            'Passwords do not match',
-          ),
+  void signUp(BuildContext context) async {
+    final authService = AuthService();
+
+    if (passwordController.text != confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Passwords do not match'),
+        ),
+      );
+      return;
+    }
+
+    try {
+      await authService.createUserWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
         ),
       );
     }

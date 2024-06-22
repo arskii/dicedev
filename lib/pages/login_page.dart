@@ -18,14 +18,8 @@ class LoginPage extends StatelessWidget {
       await authService.signInWithEmailAndPassword(
           emailController.text, passwordController.text);
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(
-            e.toString(),
-          ),
-        ),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 

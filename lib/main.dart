@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
-      home: HomePage(),
+      home: AuthGate(),
       routes: {
         '/LoginPage': (context) => LoginPage(
               onTap: () {},
