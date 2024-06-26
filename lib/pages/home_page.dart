@@ -2,6 +2,7 @@ import 'package:codedev/auth/auth_service.dart';
 import 'package:codedev/components/search_field.dart';
 import 'package:codedev/components/template_section.dart';
 import 'package:codedev/constants.dart';
+import 'package:codedev/pages/profile_page.dart';
 import 'package:codedev/pages/project_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,6 +44,15 @@ class _HomePageState extends State<HomePage> {
               },
               icon: const Icon(Icons.logout))
         ],
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.person_outline)),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {

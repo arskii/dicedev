@@ -3,7 +3,7 @@ import 'package:codedev/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginOrSignUp extends StatefulWidget {
-  const LoginOrSignUp({super.key});
+  LoginOrSignUp({super.key});
 
   @override
   State<LoginOrSignUp> createState() => _LoginOrSignUpState();

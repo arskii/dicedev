@@ -17,7 +17,7 @@ class AuthGate extends StatelessWidget {
           } else if (snapshot.hasData) {
             return const HomePage();
           } else {
-            return const LoginOrSignUp();
+            return LoginOrSignUp();
           }
         },
       ),
