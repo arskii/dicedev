@@ -1,5 +1,6 @@
 import 'package:codedev/components/custom_field.dart';
 import 'package:codedev/constants.dart';
+import 'package:codedev/pages/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -19,7 +20,16 @@ class ProjectPage extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        actions: [TextButton(onPressed: () {}, child: Text('Generate'))],
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatPage()),
+                );
+              },
+              child: Text('Generate'))
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
