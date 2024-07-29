@@ -2,6 +2,7 @@ import 'package:codedev/auth/auth_service.dart';
 import 'package:codedev/components/search_field.dart';
 import 'package:codedev/components/template_section.dart';
 import 'package:codedev/constants.dart';
+import 'package:codedev/pages/new_project_page.dart';
 import 'package:codedev/pages/profile_page.dart';
 import 'package:codedev/pages/project_page.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const ProjectPage(),
+              builder: (context) => NewProjectPage(),
             ),
           );
         },
