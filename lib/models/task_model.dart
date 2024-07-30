@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Task {
-  final String id; // Unique identifier for the task
+  final String id;
   final String title;
   final String description;
   final String libraries;
@@ -29,6 +29,7 @@ class Task {
       libraries: data['libraries'],
     );
   }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -36,7 +37,7 @@ class Task {
       'description': description,
       'createdAt': Timestamp.fromDate(createdAt),
       'deadline': Timestamp.fromDate(deadline),
-      'libraries': libraries
+      'libraries': libraries,
     };
   }
 }

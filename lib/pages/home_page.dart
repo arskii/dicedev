@@ -4,7 +4,6 @@ import 'package:codedev/components/template_section.dart';
 import 'package:codedev/constants.dart';
 import 'package:codedev/pages/new_project_page.dart';
 import 'package:codedev/pages/profile_page.dart';
-import 'package:codedev/pages/project_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -71,9 +70,9 @@ class _HomePageState extends State<HomePage> {
         child: ListView(children: const [
           SearchField(),
           SizedBox(height: 30.0),
-          TemplateSection(),
-          SizedBox(height: 30.0),
-          TemplateSection(),
+          TemplateSection(
+            title: 'My Projects',
+          ),
         ]),
       ),
     );
