@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          ' ${user?.email ?? 'Not available'}',
+          '${user?.email ?? 'Not available'}',
           style: TextStyle(fontSize: 20),
         ),
       ),
@@ -38,11 +38,13 @@ class ProfileScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () async {
                       await _auth.signOut();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginOrSignUp(),
-                          ));
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginOrSignUp(),
+                        ),
+                        (route) => false,
+                      );
                     },
                     child: Text('Sign Out'),
                   ),
@@ -90,14 +92,95 @@ class ProfileScreen extends StatelessWidget {
                     SnackBar(content: Text('Password changed successfully')),
                   );
                 } catch (e) {
-                  Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error: ${e.toString()}')),
-                  );
+                  if (e is FirebaseAuthException &&
+                      e.code == 'requires-recent-login') {
+                    Navigator.of(context).pop();
+                    _showReauthenticationDialog(context, newPassword);
+                  } else {
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error: ${e.toString()}')),
+                    );
+                  }
                 }
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Password cannot be empty')),
+                );
               }
             },
             child: Text('Change'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showReauthenticationDialog(BuildContext context, String newPassword) {
+    final _emailController = TextEditingController();
+    final _passwordController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Reauthenticate'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(hintText: 'Email'),
+            ),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(hintText: 'Password'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              String email = _emailController.text;
+              String password = _passwordController.text;
+
+              if (email.isNotEmpty && password.isNotEmpty) {
+                try {
+                  UserCredential userCredential =
+                      await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+
+                  if (userCredential.user != null) {
+                    await userCredential.user?.updatePassword(newPassword);
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Password changed successfully')),
+                    );
+                  }
+                } catch (e) {
+                  Navigator.of(context).pop();
+                  if (e is FirebaseAuthException &&
+                      e.code == 'invalid-credential') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content:
+                              Text('Invalid credentials. Please try again.')),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error: ${e.toString()}')),
+                    );
+                  }
+                }
+              }
+            },
+            child: Text('Reauthenticate'),
           ),
         ],
       ),

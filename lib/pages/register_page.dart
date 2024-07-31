@@ -2,6 +2,7 @@ import 'package:codedev/auth/auth_service.dart';
 import 'package:codedev/components/custom_button.dart';
 import 'package:codedev/components/custom_field.dart';
 import 'package:codedev/constants.dart';
+import 'package:codedev/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -9,7 +10,9 @@ class RegisterPage extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final void Function()? onTap;
+
   RegisterPage({super.key, required this.onTap});
+
   void signUp(BuildContext context) async {
     final authService = AuthService();
 
@@ -27,6 +30,13 @@ class RegisterPage extends StatelessWidget {
         emailController.text,
         passwordController.text,
       );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -40,62 +50,62 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Sign Up',
         ),
         centerTitle: false,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
         child: SafeArea(
           child: Center(
             child: Column(children: [
-              SizedBox(
+              const SizedBox(
                 height: 50.0,
               ),
-              Text(
-                "Lets get started!",
+              const Text(
+                "Let's get started!",
                 style: TextStyle(fontSize: 16.0),
               ),
-              SizedBox(height: 25.0),
+              const SizedBox(height: 25.0),
               CustomField(
                 controller: emailController,
                 title: 'Email',
               ),
-              SizedBox(height: 25.0),
+              const SizedBox(height: 25.0),
               CustomField(
                 controller: passwordController,
                 title: 'Password',
                 obscureText: true,
               ),
-              SizedBox(height: 25.0),
+              const SizedBox(height: 25.0),
               CustomField(
                 controller: confirmPasswordController,
                 title: 'Confirm Password',
                 obscureText: true,
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 25.0,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
+                    const Text(
                       "Already have an account? ",
                       style: TextStyle(fontSize: 16.0),
                     ),
                     GestureDetector(
                       onTap: onTap,
-                      child: Text(
+                      child: const Text(
                         "Login",
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -104,7 +114,7 @@ class RegisterPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 25.0),
+              const SizedBox(height: 25.0),
               CustomButton(
                 onTap: () => signUp(context),
                 text: 'Sign Up',
